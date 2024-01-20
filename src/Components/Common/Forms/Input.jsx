@@ -21,7 +21,6 @@ const Input = React.forwardRef(
                 }
                 <div className="mt-2">
                     <input
-                    
                         id={id}
                         className={`flex text-black h-10 rounded-md border border-white-300  px-3 py-2 text-sm placeholder:text-slate-700 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 ${className +' '+width}`}
                         type={type}

@@ -54,23 +54,23 @@ function PostPage() {
     return post ? (
         <AnimationContainer>
             <Container>
-                <div className={`min-h-[600px] py-2 pt-0 bg-white rounded-lg bg-transparent text-slate-950 m-auto w-[80%]`}>
+                <div className={`min-h-[600px] py-2 pt-0 bg-white rounded-lg bg-transparent text-slate-950 m-auto w-[80%] relative`}>
                     <img
                         src={post?.featuredimage ? fileService.getFilePreview(post.featuredimage) : 'fallback-image-url'}
                         alt=""
                         className=" m-auto  rounded-md"
                     />
-                    <div className=" p-4 relative">
+                    <div className=" p-4 ">
                         {
                             isAuthor && (
                                 <div className="right-6 top-6 absolute">
                                     <Button
                                         text="Edit"
                                         onClick={() => navigate(`/edit-post/${post?.$id ?? 'Loadin'}`)}
-                                        className="bg-green-500 text-white py-3 px-4">
+                                        className="border-none bg-green-500 text-white py-3 px-4">
                                     </Button>
                                     <Button
-                                        className="bg-red-500 text-white py-3 px-4" type="button"
+                                        className="border-none bg-red-500 text-white py-3 px-4" type="button"
                                         text='Delete' onClick={deletePost}>
                                     </Button>
                                 </div>

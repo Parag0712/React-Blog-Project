@@ -75,6 +75,7 @@ function LoginForm() {
                     <form onSubmit={handleSubmit(login)} className="mt-8">
                         <div className="flex flex-col gap-2">
                             <Input
+                                autoComplete
                                 label="Email Address"
                                 type="text"
                                 width="w-full"
