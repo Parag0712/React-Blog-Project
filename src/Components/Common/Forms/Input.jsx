@@ -2,7 +2,7 @@ import React, { useId } from 'react'
 
 const Input = React.forwardRef(
     function Input({ 
-        label = "Input",
+        label = "",
         type = "text",
         className = "",
         width="w-full",

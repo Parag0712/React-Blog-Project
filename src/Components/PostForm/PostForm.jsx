@@ -126,7 +126,7 @@ function PostForm({ post, edit = false }) {
                 <h2 className="w-full text-center text-2xl font-bold leading-tight ">
                     {post ? "Update" : 'Add New'} Post
                 </h2>
-                <div className="w-full grid grid-cols-1 lg:grid-cols-2 mb-3 lg:gap-[30px] mt-2">
+                <div className="w-full grid grid-cols-1  mt-2">
                     <div className="flex items-center justify-center ">
                         <section className='w-full'>
                             <div className="flex items-center justify-center w-full  py-10  sm:py-16  lg:py-0">
@@ -142,13 +142,13 @@ function PostForm({ post, edit = false }) {
 
                                             ></Input>
                                             <Input
-                                                label="Slug"
                                                 width="w-full"
                                                 placeholder="Slug"
                                                 {...register("slug", { required: true })}
                                                 onInput={(e) => {
                                                     setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
                                                 }}
+                                                className="hidden"
                                                 readOnly
                                             ></Input>
                                             <Select
