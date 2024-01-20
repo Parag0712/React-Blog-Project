@@ -5,7 +5,7 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './App/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import { AddPost, Home, SignUpPage, MyPost, ErrorPage, SignInPage, PostPage } from './Pages/index.js'
+import { AddPost, Home, SignUpPage, MyPost, ErrorPage, SignInPage, PostPage } from './pages/index.js'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { Protected } from './Components/index.js'
