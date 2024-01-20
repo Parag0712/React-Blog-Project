@@ -64,7 +64,7 @@ function PostPage() {
                     <div className=" p-4 ">
                         {
                             isAuthor && (
-                                <div className="right-6 top-6 absolute">
+                                <div className="right-0 top-2 absolute">
                                     <Button
                                         text={<Pencil />}
                                         onClick={() => navigate(`/edit-post/${post?.$id ?? 'Loadin'}`)}
