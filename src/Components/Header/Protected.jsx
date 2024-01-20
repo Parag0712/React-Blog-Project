@@ -1,11 +1,9 @@
-import React, { Children, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, {  useEffect } from 'react'
+import { useSelector, } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { startLoading, stopLoading } from '../../App/authSlice'
 
 export default function Protected({ children, authentication = true }) {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const authStatus = useSelector((state) => state.auth)
   useEffect(() => {
     if (!authStatus.loaded) {
