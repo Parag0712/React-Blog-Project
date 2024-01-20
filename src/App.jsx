@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import authServices from "./appwrite/auth";
 import { login, logout, startLoading, stopLoading, authLoaded, authLoading } from "./App/authSlice";
 import { Footer, Header, Loading } from "./Components";
-import { ErrorPage } from "./Pages/index";
+import { ErrorPage } from "./pages/index";
 import { motion, useAnimation } from "framer-motion";
 import { Outlet } from 'react-router-dom'
 
