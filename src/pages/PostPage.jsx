@@ -4,30 +4,33 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import appWriteService from '../appwrite/dbConfig'
 import fileService from '../appwrite/fileService'
 import parse from 'html-react-parser'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import authServices from '../appwrite/auth'
+import { startLoading, stopLoading } from '../App/authSlice'
 
 function PostPage() {
     const { postid } = useParams()
     const navigate = useNavigate()
     const [post, setPosts] = useState()
 
+    const dispatch = useDispatch()
     const userData = useSelector((state) => state.auth.userData);
 
     const isAuthor = post && userData ? post.userid === userData.$id : false;
 
-    console.log(userData);
-
     useEffect(() => {
+        dispatch(startLoading())
         if (postid) {
             appWriteService.getPost(postid)
                 .then((value) => {
                     if (value) {
-                        console.log(value);
                         setPosts(value)
                     } else {
                         navigate('/')
                     }
+                }).finally(()=>{
+                    
+                dispatch(stopLoading())
                 })
         } else {
             navigate('/')
@@ -51,13 +54,13 @@ function PostPage() {
     return post ? (
         <AnimationContainer>
             <Container>
-                <div className={`min-h-[600px] py-2 rounded-lg bg-white text-slate-950 w-[100%]`}>
+                <div className={`min-h-[600px] py-2 pt-0 bg-white rounded-lg bg-transparent text-slate-950 m-auto w-[80%]`}>
                     <img
                         src={post?.featuredimage ? fileService.getFilePreview(post.featuredimage) : 'fallback-image-url'}
                         alt=""
-                        className=" h-[500px] m-auto  rounded-md"
+                        className=" m-auto  rounded-md"
                     />
-                    <div className="p-4 relative">
+                    <div className=" p-4 relative">
                         {
                             isAuthor && (
                                 <div className="right-6 top-6 absolute">
@@ -68,15 +71,14 @@ function PostPage() {
                                     </Button>
                                     <Button
                                         className="bg-red-500 text-white py-3 px-4" type="button"
-                                        text='Delete'
-                                        bgColor="bg-red-500" onClick={deletePost}>
+                                        text='Delete' onClick={deletePost}>
                                     </Button>
                                 </div>
                             )
                         }
 
                         <h1 className="inline-flex items-center text-lg font-semibold">
-                            {post?.title ?? 'Loading...'} <sub className='ml-2 font-thin'>Posted By </sub>
+                            {post?.title ?? 'Loading...'} 
                         </h1>
                         <p className="mt-3 text-sm text-black">
                             {parse(post?.content ?? 'Loading...')}

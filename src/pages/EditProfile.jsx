@@ -33,9 +33,6 @@ function EditProfile() {
         try {
             const updateProfile = await authServices.updateProfile(data)
             if (updateProfile) {
-                console.log(updateProfile);
-                console.log(data);
-                console.log(userData);
                 authServices
                     .getCurrentUser()
                     .then((userData) => {

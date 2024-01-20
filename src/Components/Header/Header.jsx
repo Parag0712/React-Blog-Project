@@ -11,7 +11,6 @@ function Header() {
   const userStatus = useSelector((state) => {
     return state.auth;
   });
-  console.log(userStatus);
 
 
   const navigate = useNavigate();
@@ -101,7 +100,7 @@ function Header() {
         <div className="lg:w-[100%]  lg:relative  items-center justify-between lg:flex transition-all ease-in-out duration-1000">
           <div
             className={`lg:opacity-100 w-full absolute lg:relative duration-700  ease-in-out 
-            ${isMobileMenuOpen?"top-[0px] ":"top-[-214px] opacity-0"}
+            ${isMobileMenuOpen ? "top-[0px] " : "top-[-214px] opacity-0"}
               left-0 lg:top-0 text-center bg-black lg:bg-transparent grow items-start lg:flex `}
           >
 
