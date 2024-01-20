@@ -1,4 +1,9 @@
-import ErrorPage from "./404Page/ErrorPage";
-import AllPost from "./AllPost/AllPost";
+import Home from "./Home";
+import AddPost from "./AddPost";
+import MyPost from "./MyPost";
+import ErrorPage from "./ErrorPage";
+import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
+import PostPage from "./PostPage";
 
-export {AllPost,ErrorPage}
+export {PostPage,Home,AddPost,MyPost,ErrorPage,SignInPage,SignUpPage}

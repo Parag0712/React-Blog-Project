@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, startLoading, stopLoading } from "../../App/authSlice";
 import authServices from "../../appwrite/auth";
-import { Search, Button } from "../index";
+import { Button } from "../index";
+import { motion } from "framer-motion";
 
 function Header() {
   // Get User Status Redux
   const userStatus = useSelector((state) => {
     return state.auth;
   });
+  console.log(userStatus);
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ function Header() {
       });
   };
 
+
   const navItem = [
     {
       name: "Home",
@@ -37,13 +41,13 @@ function Header() {
       active: true,
     },
     {
-      name: "All Posts",
+      name: "My Posts",
       href: "/posts",
       active: userStatus.status,
     },
     {
       name: "Add Posts",
-      href: "",
+      href: "/addpost",
       active: userStatus.status,
     },
     {
@@ -58,12 +62,22 @@ function Header() {
     },
   ];
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLinkClick = () => {
+    // Close the mobile menu when a link is clicked
+    setIsMobileMenuOpen(false);
+  };
   //Header
   return (
     <div className="
     sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-100/10  supports-backdrop-blur:bg-white/60 bg-transparent
     ">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className=" basis-[0]  mx-auto flex max-w-7xl items-center justify-between lg:justify-normal w-full px-4 py-3 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center">
           <div className="inline-flex items-center  space-x-2">
             <span>
@@ -83,69 +97,97 @@ function Header() {
             <span className="font-bold hover:text-sky-500 ">Blog</span>
           </div>
         </Link>
+        {/* 54 */}
+        <div className="lg:w-[100%]  lg:relative  items-center justify-between lg:flex transition-all ease-in-out duration-1000">
+          <div
+            className={`lg:opacity-100 w-full absolute lg:relative duration-700  ease-in-out 
+            ${isMobileMenuOpen?"top-[0px] ":"top-[-214px] opacity-0"}
+              left-0 lg:top-0 text-center bg-black lg:bg-transparent grow items-start lg:flex `}
+          >
 
-        <div className="hidden grow items-start lg:flex">
-          <ul className="ml-5 inline-flex space-x-8">
-            {navItem.map((value, index, array) => (
-              <li className={`${value.active ? "" : "hidden"}`}
-                key={value.name}
+            <ul className="ml-5 lg:inline-flex lg:space-x-8">
+              {navItem.map((value, index, array) => (
+                <li className={`py-2 ${value.active ? " first-letter:" : "hidden"}`}
+                  key={value.name}
+                >
+                  <Link
+                    to={value.href}
+                    onClick={handleLinkClick}
+                    className={` text-md font-semibold hover:text-sky-500 text-center`}
+                  >
+                    {value.name}
+                  </Link>
+                </li>
+              ))}
+              <li className="py-2 lg:hidden"
               >
                 <Link
-                  to={value.href}
-                  className={`text-md font-semibold hover:text-sky-500   `}
-                >
-                  {value.name}
+                  to={"/EditProfile"}
+                  onClick={handleLinkClick}
+                  className={` text-md font-semibold hover:text-sky-500 text-center`}
+                > UpdateProfile
                 </Link>
               </li>
-            ))}
-          </ul>
-        </div>
 
-        <div className="hidden lg:block ">
-          {userStatus.status && (
-            <div className="flex ">
-              {/* Search */}
-              <Search />
-
-              {/*DashBoard Btn*/}
-              <Button
-                text={userStatus.userData?.name}
-                border="border border-black"
-                className="text-black bg-white hover:bg-slate-950 hover:text-white border-none"
-                
-                onClick={() => navigate("/dashboard")}
-              />
+              <li className="py-2 lg:hidden"
+              >
+                <Link
+                  onClick={logoutOfApp}
+                  className={` text-md font-semibold hover:text-sky-500 text-center`}
+                > Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
 
 
-              {/*Logout Btn*/}
-              <Button
-                onClick={logoutOfApp}
-                className="bg-red-600 hover:bg-red-700 text-white border-none"
-                text="Logout"
-              />
-            </div>
-          )}
-        </div>
-        <div className="lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6 cursor-pointer"
-          >
-            <line x1="4" y1="12" x2="20" y2="12"></line>
-            <line x1="4" y1="6" x2="20" y2="6"></line>
-            <line x1="4" y1="18" x2="20" y2="18"></line>
-          </svg>
+          <div className="hidden lg:block ">
+            {userStatus.status && (
+              <div className="flex ">
+                {/* Search */}
+
+                {/*DashBoard Btn*/}
+                <Button
+                  text={userStatus.userData?.name}
+                  border="border border-black"
+                  className="text-black bg-white hover:bg-slate-950 hover:text-white border-none"
+
+                  onClick={() => navigate("/EditProfile")}
+                />
+
+
+                {/*Logout Btn*/}
+                <Button
+                  onClick={logoutOfApp}
+                  className="bg-red-600 hover:bg-red-700 text-white border-none"
+                  text="Logout"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className=" lg:hidden z-50 relative " onClick={toggleMobileMenu}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-6 w-6 cursor-pointer"
+            >
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="6" x2="20" y2="6"></line>
+              <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+          </div>
+
         </div>
       </div>
-    </div>
+    </div >
 
   );
 }

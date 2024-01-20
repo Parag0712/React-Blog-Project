@@ -14,7 +14,7 @@ export class AuthService {
         this.client
             .setEndpoint(config.appwrite_url)
             .setProject(config.appwrite_projectId)
-            
+
         this.account = new Account(this.client)
     }
 
@@ -32,6 +32,33 @@ export class AuthService {
             throw error;
         }
     }
+    async updateName(userId, newName) {
+        try {
+            // Assuming you have a method to update the name in your authentication service
+            await this.account.updateName(userId, newName);
+            return true; // Return true on successful name update
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateProfile({ name, email,password }) {
+        try {
+            // Update name if provided
+            if (name) {
+                const nameUpdateResult = await this.account.updateName(name,password);
+            }
+            // Update email if provided
+            if (email) {
+                const emailUpdateResult = await this.account.updateEmail(email,password);
+            }
+            return true;
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            throw error;
+        }
+    }
+
 
     // login Method
     async login({ email, password }) {
@@ -54,13 +81,12 @@ export class AuthService {
         return null;
     }
 
-
     //logout Method
     async logout() {
         try {
             await this.account.deleteSessions();
         } catch (error) {
-            
+
             console.log("Appwrite Error" + error);
         }
     }

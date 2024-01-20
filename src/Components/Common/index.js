@@ -6,5 +6,8 @@ import Avatar from "./Logos/Avatar";
 import Logo from "./Logos/Logo";
 import Select from "./Forms/Select";
 import PostCard from "./Cards/PostCard";
+import Rte from "./RealTimeEditor/Rte";
+import FormButton from "../Login/FormButton";
 
-export {PostCard,Select,Loading,Button,Input,Search,Avatar,Logo,}
+
+export {FormButton,Rte,PostCard,Select,Loading,Button,Input,Search,Avatar,Logo,}

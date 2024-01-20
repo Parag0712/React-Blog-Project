@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimationContainer } from '../../Components'
+import { AnimationContainer } from '../Components'
 
 function ErrorPage({errormsg="Server Error 404"}) {
   return (

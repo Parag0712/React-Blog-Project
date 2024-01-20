@@ -4,8 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState  = {
     status: false,
     userData: null,
-    
-    loading: false, 
+    loading: true, 
+    loaded:false,
 }
 
 // slice
@@ -19,7 +19,7 @@ const authSlice = createSlice({
             state.loading = false;
         },
         logout: (state) => {
-            state.status = false;
+            state.status = false; 
             state.userData = null;
             state.loading = false;
         },
@@ -28,10 +28,17 @@ const authSlice = createSlice({
         },
         stopLoading: (state) => {
             state.loading = false; // Set loading to false when an asynchronous operation stops
+            state.loaded = true
         },
+        authLoaded: (state) =>{
+            state.loaded = true
+        },
+        authLoading: (state) =>{
+            state.loaded = false
+        }
     }
 })
 
 
-export const { login, logout ,startLoading,stopLoading} = authSlice.actions
+export const { login, logout ,startLoading,stopLoading,authLoaded,authLoading} = authSlice.actions
 export default authSlice.reducer

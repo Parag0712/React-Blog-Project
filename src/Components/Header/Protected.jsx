@@ -6,10 +6,12 @@ import { startLoading, stopLoading } from '../../App/authSlice'
 export default function Protected({ children, authentication = true }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [loader, setLoading] = useState(false)
-  const authStatus = useSelector((state) => state.auth.status)
-
+  const authStatus = useSelector((state) => state.auth)
   useEffect(() => {
+    if (!authStatus.loaded) {
+      return
+    }
+    // dispatch(startLoading())
     //TODO: make it more easy to understand
 
     // if (authStatus ===true){
@@ -22,15 +24,14 @@ export default function Protected({ children, authentication = true }) {
 
     //let authValue = authStatus === true ? true : false
 
-    dispatch(startLoading());
-    if (authentication && authStatus !== authentication) {
+    if (authentication && authStatus.status !== authentication) {
       navigate('/signin')
-    } else if (!authentication && authStatus !== authentication) {
+    } else if (!authentication && authStatus.status !== authentication) {
       navigate('/')
     }
-    dispatch(stopLoading());
+    // dispatch(stopLoading());
     // setLoading(false)
-  }, [authStatus, navigate, authentication])
+  }, [authStatus.status, authStatus.loaded, navigate, authentication])
 
   return <>{children}</>
 }

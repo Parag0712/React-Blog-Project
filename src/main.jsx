@@ -5,11 +5,13 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './App/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import { AllPost, ErrorPage } from './Pages/index.js'
-import SignInPage from './pages/SignInUp/SignInPage.jsx'
-import SignUpPage from './pages/SignUpPage/SignUpPage.jsx'
+import { AddPost, Home, SignUpPage, MyPost, ErrorPage, SignInPage, PostPage } from './Pages/index.js'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { Protected } from './Components/index.js'
+import EditPost from './pages/EditPost.jsx'
+import EditProfile from './pages/EditProfile.jsx'
+
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -29,23 +31,45 @@ const router = createBrowserRouter(
             </AnimatePresence>
          }
       >
+         <Route path='' element={
+            <Protected authentication={true}>
+               <Home />
+            </Protected>
+         } />
+           <Route path='EditProfile' element={
+            <Protected authentication={true}>
+               <EditProfile />
+            </Protected>
+         } />
          <Route path='posts' element={
             <Protected authentication={true}>
-               <AllPost />
+               <MyPost />
+            </Protected>
+         } />
+         <Route path='addpost' element={
+            <Protected authentication={true}>
+               <AddPost />
+            </Protected>
+         } />
+         <Route path='edit-post/:slug' element={
+            <Protected authentication={true}>
+               <EditPost />
+            </Protected>
+         } />
+         <Route path='post/:postid' element={
+            <Protected authentication={true}>
+               <PostPage />
             </Protected>
          } />
          <Route path='signin' element={
-
             <Protected authentication={false}>
                <SignInPage />
             </Protected>
-
          } />
          <Route path='signup' element={
             <Protected authentication={false}>
                <SignUpPage />
             </Protected>
-
          } />
          <Route path="*" element={<ErrorPage errormsg="Page Not Found" />} />
       </Route>
@@ -53,10 +77,8 @@ const router = createBrowserRouter(
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-   <React.StrictMode>
-      <Provider store={store}>
-         <RouterProvider router={router}>
-         </RouterProvider>
-      </Provider>
-   </React.StrictMode>
+   <Provider store={store}>
+      <RouterProvider router={router}>
+      </RouterProvider>
+   </Provider>
 )

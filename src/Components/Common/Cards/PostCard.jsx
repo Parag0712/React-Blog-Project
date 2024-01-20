@@ -2,23 +2,32 @@ import React from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import fileService from '../../../appwrite/fileService'
 import { Link, useNavigate } from 'react-router-dom'
-
-function PostCard({ $id, title="post", featuredimage="12121212", content="" }) {
+import parse from 'html-react-parser'
+import AnimationContainer from '../../Container/AnimationContainer'
+function PostCard({ $id, title="", featuredimage="", content="" ,className="w-[300px]",status}) {
     const navigate =  useNavigate()
     return (
-            <div className="w-[300px] rounded-lg bg-white text-slate-950 ">
+        <AnimationContainer>
+            <div className={` rounded-lg  text-slate-950 ${status =="inactive"?"bg-slate-200":"bg-white"} ${className}`}>
                 <img
                     src={fileService.getFilePreview(featuredimage)}
-                    alt={title}
+                    alt={title} 
                     className="h-[200px] w-full rounded-t-md object-cover"
                 />
                 <div className="p-4">
                     <h1 className="inline-flex items-center text-lg font-semibold">
-                        {title} &nbsp; <ArrowUpRight className="h-4 w-4" />
+                    
+                    
+                    {/* onClick={()=>navigate(`/post/${$id}`)} */}
+                        {title} &nbsp;{status =="inactive"?
+                            <Link className='text-blue-800' to={`/edit-post/${$id}`}>
+                                Click For Acitve
+                            </Link>
+                        :""} 
                     </h1>
-                    <p className="mt-3 text-sm text-black">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, debitis?
-                    </p>
+                    <div className="mt-3 text-sm text-black">
+                        {parse(content)}
+                    </div>
 
                     <button
                         onClick={()=>navigate(`/post/${$id}`)}
@@ -29,6 +38,7 @@ function PostCard({ $id, title="post", featuredimage="12121212", content="" }) {
                     </button>
                 </div>
             </div>
+            </AnimationContainer>
     )
 }
 export default PostCard

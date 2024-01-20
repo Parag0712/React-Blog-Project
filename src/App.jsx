@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import authServices from "./appwrite/auth";
-import { login, logout, startLoading, stopLoading } from "./App/authSlice";
-import {  Footer, Header, Loading } from "./Components";
+import { login, logout, startLoading, stopLoading, authLoaded, authLoading } from "./App/authSlice";
+import { Footer, Header, Loading } from "./Components";
 import { ErrorPage } from "./Pages/index";
 import { motion, useAnimation } from "framer-motion";
 import { Outlet } from 'react-router-dom'
@@ -13,8 +13,6 @@ function App() {
   const [errorMsg, setErrorMsg] = useState("")
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading)
-
-
   const controls = useAnimation();
   useEffect(() => {
     // Run the animation whenever the component renders or loading state changes
@@ -24,10 +22,12 @@ function App() {
 
   // Check User Login Or Not
   useEffect(() => {
-    dispatch(startLoading())
+    dispatch(authLoading())
     authServices
       .getCurrentUser()
       .then((userData) => {
+        // console.log(userData);
+        // alert("i am Loading")
         //if userData not empty then login in redux else
         if (userData) {
           dispatch(login({ userData }));
@@ -40,10 +40,10 @@ function App() {
         setErrorMsg(error)
       })
       .finally(() => {
+        dispatch(authLoaded())
         dispatch(stopLoading())
       });
-  }, []);
-
+  }, [dispatch]);
 
   return (
     <div className="">

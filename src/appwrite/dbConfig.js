@@ -28,6 +28,7 @@ export class Service {
                 }
             )
         } catch (error) {
+            throw error
             console.log("Appwrite Service Error" + error);
         }
     }
