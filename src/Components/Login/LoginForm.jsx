@@ -21,7 +21,6 @@ function LoginForm() {
     const login = async (data) => {      
         
         dispatch(startLoading())  
-        console.log(data);
         setError("")
         try {
             const session = await authServices.login(data)
@@ -76,6 +75,7 @@ function LoginForm() {
                         <div className="flex flex-col gap-2">
                             <Input
                                 autoComplete
+
                                 label="Email Address"
                                 type="text"
                                 width="w-full"

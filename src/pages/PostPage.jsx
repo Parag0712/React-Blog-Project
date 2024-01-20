@@ -54,7 +54,7 @@ function PostPage() {
     return post ? (
         <AnimationContainer>
             <Container>
-                <div className={`min-h-[600px] py-2 pt-0 bg-white rounded-lg bg-transparent text-slate-950 m-auto w-[80%] relative`}>
+                <div className={`lg:min-h-[600px] py-2 pt-0 bg-white rounded-lg bg-transparent text-slate-950 m-auto w-[80%] relative`}>
                     <img
                         src={post?.featuredimage ? fileService.getFilePreview(post.featuredimage) : 'fallback-image-url'}
                         alt=""
