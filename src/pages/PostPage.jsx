@@ -7,6 +7,7 @@ import parse from 'html-react-parser'
 import { useDispatch, useSelector } from 'react-redux'
 import authServices from '../appwrite/auth'
 import { startLoading, stopLoading } from '../App/authSlice'
+import { Pencil, Trash2 } from 'lucide-react'
 
 function PostPage() {
     const { postid } = useParams()
@@ -65,13 +66,13 @@ function PostPage() {
                             isAuthor && (
                                 <div className="right-6 top-6 absolute">
                                     <Button
-                                        text="Edit"
+                                        text={<Pencil />}
                                         onClick={() => navigate(`/edit-post/${post?.$id ?? 'Loadin'}`)}
-                                        className="border-none bg-green-500 text-white py-3 px-4">
+                                        className="border-none bg-green-500 text-white">
                                     </Button>
                                     <Button
-                                        className="border-none bg-red-500 text-white py-3 px-4" type="button"
-                                        text='Delete' onClick={deletePost}>
+                                        className="border-none bg-red-500 text-white " type="button"
+                                        text={<Trash2 />} onClick={deletePost}>
                                     </Button>
                                 </div>
                             )
