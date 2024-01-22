@@ -4,11 +4,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import authServices from '../../appwrite/auth'
 import { ArrowRight } from 'lucide-react'
 import { login as authLogin, startLoading, stopLoading } from '../../App/authSlice'
-
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form'
 import { Input, Loading } from '../Common/index'
 import FormButton from './FormButton'
-
 
 function SignupForm() {
     const [error, setError] = useState("")
@@ -28,11 +27,13 @@ function SignupForm() {
                 const userData = await authServices.getCurrentUser()
                 if (userData) {
                     console.log(userData);
-                    dispatch(authLogin({userData}))
+                    dispatch(authLogin({ userData }))
+                    toast.success("account created successfully")
                     navigate("/")
                 }
             }
         } catch (error) {
+            toast.error(error.message)
             setError(error.message)
         } finally {
             dispatch(stopLoading())
@@ -41,6 +42,7 @@ function SignupForm() {
 
     return (
         <section className='max-w-[500px] px-2 py-8 border-[1px] text-black bg-white bg-wh rounded-lg border-white m-auto'>
+
             <div className="flex items-center justify-center  px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-0">
                 <div className=" w-full ">
                     <div className="mb-2 flex justify-center">
@@ -150,7 +152,7 @@ function SignupForm() {
                     <div className="mt-1">
                         <p className='text-center font-bold'>Or</p>
                         <FormButton
-                        className='hover:bg-gray-100 hover:text-black'
+                            className='hover:bg-gray-100 hover:text-black'
                             img={<span className="mr-2 inline-block">
                                 <svg
                                     className="h-6 w-6 text-rose-500"

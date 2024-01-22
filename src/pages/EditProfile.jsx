@@ -6,6 +6,7 @@ import { FormButton } from '../Components/Common'
 import authServices from '../appwrite/auth'
 import { login, logout, startLoading, stopLoading } from '../App/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 
 
@@ -46,9 +47,12 @@ function EditProfile() {
                             dispatch(logout());
                         }
                     })
+                    toast.success("Profile Updated")
                 navigate('/')
             }
         } catch (error) {
+            
+            toast.error(error.message)
             setError(error.message)
         } finally {
             dispatch(stopLoading())

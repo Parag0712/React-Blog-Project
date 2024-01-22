@@ -5,6 +5,7 @@ import { logout, startLoading, stopLoading } from "../../App/authSlice";
 import authServices from "../../appwrite/auth";
 import { Button } from "../index";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 function Header() {
   // Get User Status Redux
@@ -22,10 +23,12 @@ function Header() {
       .logout()
       .then(() => {
         dispatch(logout());
+        toast.error("logged out")
         navigate("/signin")
-        console.log("Helo");
+
       })
-      .catch(() => {
+      .catch((error) => {
+        toast.error("error")
         //TODO: Server Error Future Improvement
       }).finally(() => {
         dispatch(stopLoading())

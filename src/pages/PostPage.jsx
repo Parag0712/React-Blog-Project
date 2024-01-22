@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import authServices from '../appwrite/auth'
 import { startLoading, stopLoading } from '../App/authSlice'
 import { Pencil, Trash2 } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 function PostPage() {
     const { postid } = useParams()
@@ -47,6 +48,7 @@ function PostPage() {
                     fileService.deleteFile(value.featuredimage);
                     navigate('/')
                 })
+                toast.success("Post Deleted")
             navigate('/')
         } else {
             navigate('/')

@@ -7,6 +7,9 @@ import { ErrorPage } from "./pages/index";
 import { motion, useAnimation } from "framer-motion";
 import { Outlet } from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const [serverError, setServerError] = useState(false);
@@ -44,7 +47,6 @@ function App() {
         dispatch(stopLoading())
       });
   }, [dispatch]);
-
   return (
     <div className="">
       {!serverError ? (
@@ -56,6 +58,20 @@ function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className={` bg-black text-white flex flex-col justify-between ${loading ? "hidden" : ""}`} >
+
+
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <Header></Header>
             <main className="my-9 min-h-[450px]">
               <Outlet />

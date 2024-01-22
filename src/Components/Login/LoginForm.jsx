@@ -4,9 +4,11 @@ import authServices from '../../appwrite/auth'
 import { login as authLogin, startLoading, stopLoading } from '../../App/authSlice'
 import { Input, Loading } from '../Common'
 import { ArrowRight } from 'lucide-react'
-import FormButton  from './FormButton'
-import { useDispatch} from 'react-redux'
+import FormButton from './FormButton'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function LoginForm() {
 
 
@@ -18,21 +20,22 @@ function LoginForm() {
     const [passwordError, setPasswordError] = useState("")
 
     //login Handler
-    const login = async (data) => {      
-        
-        dispatch(startLoading())  
+    const login = async (data) => {
+
+        dispatch(startLoading())
         setError("")
         try {
             const session = await authServices.login(data)
             if (session) {
                 const userData = await authServices.getCurrentUser()
                 if (userData) {
-                    dispatch(authLogin({userData}))
+                    dispatch(authLogin({ userData }))
+                    toast.success("login successfully");
                     navigate("/")
                 }
             }
         } catch (error) {
-            setError(error.message)
+            toast.error(error.message);
         } finally {
             dispatch(stopLoading())
         }
@@ -130,7 +133,7 @@ function LoginForm() {
                     <div className="mt-1">
                         <p className='text-center font-bold'>Or</p>
                         <FormButton
-                        className='hover:bg-gray-100 hover:text-black'
+                            className='hover:bg-gray-100 hover:text-black'
                             img={<span className="mr-2 inline-block">
                                 <svg
                                     className="h-6 w-6 text-rose-500"
