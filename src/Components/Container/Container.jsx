@@ -1,9 +1,9 @@
 import React from 'react'
     
-function Container({children}) {
+function Container({children,className=""}) {
     return (
-        <div className='bg-black w-full max-w-6xl mx-auto px-4
-        '>
+        <div className={`bg-black w-full max-w-6xl mx-auto px-4
+         ${className}`}>
             {children}
         </div>
     );

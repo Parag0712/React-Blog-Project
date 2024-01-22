@@ -42,8 +42,8 @@ function LoginForm() {
     }
 
     return (
-        <section className='max-w-[500px] px-2 py-8 border-[1px] text-black bg-white bg-wh rounded-lg border-white m-auto'>
-            <div className=" flex items-center justify-center  px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-0">
+        <section className='max-w-[500px] px-2 lg:py-8 border-[1px] text-black bg-white bg-wh rounded-lg border-white m-auto'>
+            <div className=" flex items-center justify-center  px-4 py-10 sm:px-6  lg:px-8 lg:py-0">
                 <div className=" w-full">
                     <div className="mb-2 flex justify-center">
                         <svg

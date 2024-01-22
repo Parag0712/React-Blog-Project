@@ -134,7 +134,10 @@ function Header() {
               <li className="py-2 lg:hidden"
               >
                 <Link
-                  onClick={logoutOfApp}
+                  onClick={()=>{
+                    logoutOfApp()
+                    handleLinkClick()
+                  }}
                   className={` text-md font-semibold hover:text-sky-500 text-center`}
                 > Logout
                 </Link>

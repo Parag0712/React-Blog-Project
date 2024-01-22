@@ -42,15 +42,15 @@ export class AuthService {
         }
     }
 
-    async updateProfile({ name, email,password }) {
+    async updateProfile({ name, email, password }) {
         try {
             // Update name if provided
             if (name) {
-                const nameUpdateResult = await this.account.updateName(name,password);
+                const nameUpdateResult = await this.account.updateName(name, password);
             }
             // Update email if provided
             if (email) {
-                const emailUpdateResult = await this.account.updateEmail(email,password);
+                const emailUpdateResult = await this.account.updateEmail(email, password);
             }
             return true;
         } catch (error) {
@@ -79,6 +79,15 @@ export class AuthService {
             throw error.message
         }
         return null;
+    }
+
+
+    async googleAuth() {
+        try {
+            this.account.createOAuth2Session("google", "success url", "failure url")
+        } catch (error) {
+            console.log("Appwrite Error" + error);
+        }
     }
 
     //logout Method
