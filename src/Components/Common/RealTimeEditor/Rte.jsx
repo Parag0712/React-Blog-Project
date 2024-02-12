@@ -1,6 +1,8 @@
 import React from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { Controller } from 'react-hook-form'
+import config from '../../../config/config'
+
 
 function Rte({ name, control, label = 'Parag', defaultValue = "" }) {
     return (
@@ -11,13 +13,14 @@ function Rte({ name, control, label = 'Parag', defaultValue = "" }) {
                 </label>
             )
             }
+            
             <Controller
                 name={name || "content"}
                 control={control}
                 rules={{ required: true }}
                 render={({ field: { onChange } }) => (
                     <Editor
-                        apiKey='niovrz8nvmmb5iwnh64swy0xi3273muxs89yi7fzu2ohddk6'
+                        apiKey={config.appwrite_rte_apiKey}
                         initialValue={defaultValue}
                         init={
                             {

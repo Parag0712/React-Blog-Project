@@ -61,7 +61,7 @@ function PostPage() {
                     <img
                         src={post?.featuredimage ? fileService.getFilePreview(post.featuredimage) : 'fallback-image-url'}
                         alt=""
-                        className=" m-auto  rounded-md"
+                        className="m-auto max-h-[300px] w-full object-cover rounded-md"
                     />
                     <div className=" p-4 ">
                         {
