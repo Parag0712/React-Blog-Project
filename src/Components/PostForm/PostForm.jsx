@@ -181,13 +181,18 @@ function PostForm({ post, edit = false }) {
                                                     />
                                                 </div>
 
-                                                <Rte label='Content :'
-                                                    defaultValue={getValues('content') || ''}
-                                                    name="content"
-                                                    control={control}
-                                                >
 
-                                                </Rte>
+                                                <label htmlFor="Content" className="text-base font-medium text-white-900">
+                                                    Content
+                                                </label>
+                                                <textarea id='Content' className="flex text-black  rounded-md border border-white-300  px-3 py-2 text-sm placeholder:text-slate-700 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 "
+                                                    placeholder='Content'
+                                                    rows={5} 
+                                                    {...register("content", { required: true })}
+                                                >
+                                                    
+                                                </textarea>
+                                                
                                                 <FormButton
                                                     text={post ? "Update Post" : "Create Post"}
                                                     type="submit"
